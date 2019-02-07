@@ -579,6 +579,7 @@ public class Cliente1V2 extends javax.swing.JFrame {
             
             }else{
             System.out.println("Terminado");
+            clienteSocket.close();
             System.exit(0);
             }
       
