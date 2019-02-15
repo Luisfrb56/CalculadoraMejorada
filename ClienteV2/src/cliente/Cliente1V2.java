@@ -20,39 +20,42 @@ import javax.swing.JOptionPane;
  */
 public class Cliente1V2 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Cliente
-     */
+    
     /*
-    Operador es un valor de tipo String que cambiara segun el operador que seleccionemos en nuestra interfaz para 
-   `poder interpretarlo en el servidor
-    */
-    String operador=null;
+    Declaramos el clienteSocket y la variable c con la que funcionara la desconexion
+     */
+    
     Socket clienteSocket;
-    int c=0;
+    int c = 0;
+
     public Cliente1V2() {
         initComponents();
-        b1.setEnabled(false);
         
-      b2.setEnabled(false);
-      b3.setEnabled(false);
-      b4.setEnabled(false);
-      b5.setEnabled(false);
-      b6.setEnabled(false);
-      b7.setEnabled(false);
-      b8.setEnabled(false);
-      b9.setEnabled(false);
-      b10.setEnabled(false);
-      bSuma.setEnabled(false);
-      bResta.setEnabled(false);
-      bDivi.setEnabled(false);
-      bMulti.setEnabled(false);
-      bRaiz.setEnabled(false);
-      bDeci.setEnabled(false);
-      jbNega.setEnabled(false);
-      bEnviar.setEnabled(false);
-      t1.setEnabled(false);
-      
+        /*
+        Al correr la aplicacion por primera vez ponemos todos los botones de la calculadora inoperables 
+        para que no interfiera con la conexion al servidor
+        */
+        b1.setEnabled(false);
+
+        b2.setEnabled(false);
+        b3.setEnabled(false);
+        b4.setEnabled(false);
+        b5.setEnabled(false);
+        b6.setEnabled(false);
+        b7.setEnabled(false);
+        b8.setEnabled(false);
+        b9.setEnabled(false);
+        b10.setEnabled(false);
+        bSuma.setEnabled(false);
+        bResta.setEnabled(false);
+        bDivi.setEnabled(false);
+        bMulti.setEnabled(false);
+        bRaiz.setEnabled(false);
+        bDeci.setEnabled(false);
+        jbNega.setEnabled(false);
+        bEnviar.setEnabled(false);
+        t1.setEnabled(false);
+        bborrar.setEnabled(false);
     }
 
     /**
@@ -90,6 +93,7 @@ public class Cliente1V2 extends javax.swing.JFrame {
         jtIP = new javax.swing.JTextField();
         jtServer = new javax.swing.JTextField();
         jbConectar = new javax.swing.JButton();
+        bborrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -227,7 +231,7 @@ public class Cliente1V2 extends javax.swing.JFrame {
                 b10ActionPerformed(evt);
             }
         });
-        getContentPane().add(b10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
+        getContentPane().add(b10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
         t1.setPreferredSize(new java.awt.Dimension(75, 50));
         getContentPane().add(t1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, -1));
@@ -329,266 +333,271 @@ public class Cliente1V2 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 220, 430));
 
+        bborrar.setText("Borrar Resultado");
+        bborrar.setMaximumSize(new java.awt.Dimension(100, 20));
+        bborrar.setMinimumSize(new java.awt.Dimension(100, 20));
+        bborrar.setPreferredSize(new java.awt.Dimension(110, 20));
+        bborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bborrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bborrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 170, 75));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bMultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMultiActionPerformed
         /*
-        Boton de multiplicar muestra la operación que vamos a realizar en un TextView, mete su codigo en el operador 
-        para tratarlo en el servidor en su caso es 103 e impide que se puedan dar a los otros botones una vez dado este.
-        */
+        Boton Multiplicacion que hace imposible dar a otra operacion 
+         */
         bSuma.setEnabled(false);
         bMulti.setEnabled(false);
         bResta.setEnabled(false);
         bDivi.setEnabled(false);
         bRaiz.setEnabled(false);
-        t1.setText(" * ");
-        operador="103";
-       
+        t1.setText(t1.getText() +" * ");
+
     }//GEN-LAST:event_bMultiActionPerformed
 
     private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
-        
-            t1.setText(t1.getText()+"1");
-        
+        //Boton del numero 1
+        t1.setText(t1.getText() + "1");
+
     }//GEN-LAST:event_b1ActionPerformed
 
     private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
-        
-            
-            t1.setText(t1.getText()+"2");
-            jbNega.setEnabled(false);
-        
+        //Boton del numero 2
+        t1.setText(t1.getText() + "2");
+        jbNega.setEnabled(false);
+
     }//GEN-LAST:event_b2ActionPerformed
 
     private void b3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b3ActionPerformed
-        
-            t1.setText(t1.getText()+"3");
-            jbNega.setEnabled(false);
-        
-        
+        //Boton del numero 3
+        t1.setText(t1.getText() + "3");
+        jbNega.setEnabled(false);
+
+
     }//GEN-LAST:event_b3ActionPerformed
 
     private void b4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b4ActionPerformed
-        
-            t1.setText(t1.getText()+"4");
-            jbNega.setEnabled(false);
-        
+        //Boton del numero 4
+        t1.setText(t1.getText() + "4");
+        jbNega.setEnabled(false);
+
     }//GEN-LAST:event_b4ActionPerformed
 
     private void b5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b5ActionPerformed
-        
-            t1.setText(t1.getText()+"5");
-            jbNega.setEnabled(false);
+        //Boton del numero 5
+        t1.setText(t1.getText() + "5");
+        jbNega.setEnabled(false);
 
     }//GEN-LAST:event_b5ActionPerformed
 
     private void b6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b6ActionPerformed
-       
-            t1.setText(t1.getText()+"6");
-            jbNega.setEnabled(false);
-        
+        //Boton del numero 6
+        t1.setText(t1.getText() + "6");
+        jbNega.setEnabled(false);
+
     }//GEN-LAST:event_b6ActionPerformed
 
     private void b7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b7ActionPerformed
-        
-            t1.setText(t1.getText()+"7");
-            jbNega.setEnabled(false);
-        
+        //Boton del numero 7
+        t1.setText(t1.getText() + "7");
+        jbNega.setEnabled(false);
+
     }//GEN-LAST:event_b7ActionPerformed
 
     private void b8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b8ActionPerformed
-        
-            t1.setText(t1.getText()+"8");
-            jbNega.setEnabled(false);
-        
+        //Boton del numero 8
+        t1.setText(t1.getText() + "8");
+        jbNega.setEnabled(false);
+
     }//GEN-LAST:event_b8ActionPerformed
 
     private void b9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b9ActionPerformed
-       
-            t1.setText(t1.getText()+"9");
-            jbNega.setEnabled(false);
-       
+        //Boton del numero 9
+        t1.setText(t1.getText() + "9");
+        jbNega.setEnabled(false);
+
     }//GEN-LAST:event_b9ActionPerformed
 
     private void b10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b10ActionPerformed
-        
-            t1.setText(t1.getText()+"0");
-            jbNega.setEnabled(false);
-       
+        //Boton del numero 0
+        t1.setText(t1.getText() + "0");
+        jbNega.setEnabled(false);
+
     }//GEN-LAST:event_b10ActionPerformed
 
     private void bSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSumaActionPerformed
         /*
-        Boton de sumar muestra la operación que vamos a realizar en un TextView, mete su codigo en el operador 
-        para tratarlo en el servidor en su caso es 101 e impide que se puedan dar a los otros botones una vez dado este.
-        */
+        Boton suma que hace imposible dar a otra operacion 
+         */
         bSuma.setEnabled(false);
         bMulti.setEnabled(false);
         bResta.setEnabled(false);
         bDivi.setEnabled(false);
         bRaiz.setEnabled(false);
-        t1.setText(t1.getText()+" + ");
-        operador="101";
-        
+        t1.setText(t1.getText() + " + ");
         jbNega.setEnabled(true);
     }//GEN-LAST:event_bSumaActionPerformed
 
     private void bRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRestaActionPerformed
         /*
-        Boton de restar muestra la operación que vamos a realizar en un TextView, mete su codigo en el operador 
-        para tratarlo en el servidor en su caso es 102 e impide que se puedan dar a los otros botones una vez dado este.
-        */
+        Boton resta que hace imposible dar a otra operacion 
+         */
         bSuma.setEnabled(false);
         bMulti.setEnabled(false);
         bResta.setEnabled(false);
         bDivi.setEnabled(false);
         bRaiz.setEnabled(false);
-        t1.setText(t1.getText()+" - ");
-        operador="102";
-        
+        t1.setText(t1.getText() + " - ");
         jbNega.setEnabled(true);
     }//GEN-LAST:event_bRestaActionPerformed
 
     private void bDiviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDiviActionPerformed
         /*
-        Boton de dividir muestra la operación que vamos a realizar en un TextView, mete su codigo en el operador 
-        para tratarlo en el servidor en su caso es 104 e impide que se puedan dar a los otros botones una vez dado este.
-        */
+        Boton dividir que hace imposible dar a otra operacion 
+         */
         bSuma.setEnabled(false);
         bMulti.setEnabled(false);
         bResta.setEnabled(false);
         bDivi.setEnabled(false);
         bRaiz.setEnabled(false);
-        t1.setText(t1.getText()+" / ");
-        operador="104";
-        
+        t1.setText(t1.getText() + " / ");
+
         jbNega.setEnabled(true);
     }//GEN-LAST:event_bDiviActionPerformed
 
     private void bRaizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRaizActionPerformed
         /*
-        Boton de la raiz muestra la operación que vamos a realizar en un TextView, mete su codigo en el operador 
-        para tratarlo en el servidor en su caso es 105 e impide que se puedan dar a los otros botones una vez dado este, 
-        además a diferencia de los otros, tambien impide que se pueda escribir en el ultimo TextView porque la raiz solo 
-        necesita un valor.
-        */
+        Boton raiz que que hace imposible dar a cualquier otro boton, va despues del numero que queramos calcular.
+         */
         bSuma.setEnabled(false);
         bMulti.setEnabled(false);
         bResta.setEnabled(false);
         bDivi.setEnabled(false);
         bRaiz.setEnabled(false);
-        t1.setText(t1.getText()+" √ ");
-        operador="105";
+        t1.setText(t1.getText() + " √ ");
+        
         t1.setEditable(false);
         t1.setEnabled(false);
-        
-        
+
+
     }//GEN-LAST:event_bRaizActionPerformed
 
     private void bEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEnviarActionPerformed
-        try{
+        try {
             /*
-            Abrimos el socket del cliente y establecemos la conexión con el host del servidor
-            ademas creamos ya nuestros Inputs y Outputs Stream que usaremos
-            */
-            
-            
+            Creamos los input y outpt stream 
+             */
+
             InputStream is = clienteSocket.getInputStream();
-            OutputStream os= clienteSocket.getOutputStream();
+            OutputStream os = clienteSocket.getOutputStream();
             
+            //mandamos el resultado y recibimos y lo mostramos por nuestro t1
             
             os.write(t1.getText().getBytes());
-            
-            
-            byte[]result=new byte[100];
+
+            byte[] result = new byte[100];
             is.read(result);
-            t1.setText(new String (result));
-            
-            System.out.println(new String(result));
-            /*
-            Despues cerramos el socket.
-            */
-            
-            
-            }catch (IOException e) {
-                e.printStackTrace();
+
+            t1.setText(new String(result));
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_bEnviarActionPerformed
 
     private void jbNegaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNegaActionPerformed
-       
-                t1.setText(t1.getText()+"-");
-            
-             
-        
-       
-        
+        //Para numeros negativos tenemos su propio boton
+        t1.setText(t1.getText() + "-");
+
+
     }//GEN-LAST:event_jbNegaActionPerformed
 
     private void bDeciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeciActionPerformed
-        t1.setText(t1.getText()+".");
+        //Metemos un punto para los botones decimales
+        t1.setText(t1.getText() + ".");
     }//GEN-LAST:event_bDeciActionPerformed
 
     private void jtIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtIPActionPerformed
-        
+
     }//GEN-LAST:event_jtIPActionPerformed
 
     private void jbConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConectarActionPerformed
-      /*
+        /*
         Hace todos los botones funcionales para trabajar con el y crea la conexion o la cierra si el boton ya ha sido ejecutado
-      */
-        
-       b1.setEnabled(true);
-      b2.setEnabled(true);
-      b3.setEnabled(true);
-      b4.setEnabled(true);
-      b5.setEnabled(true);
-      b6.setEnabled(true);
-      b7.setEnabled(true);
-      b8.setEnabled(true);
-      b9.setEnabled(true);
-      b10.setEnabled(true);
-      bSuma.setEnabled(true);
-      bResta.setEnabled(true);
-      bDivi.setEnabled(true);
-      bMulti.setEnabled(true);
-      bRaiz.setEnabled(true);
-      bDeci.setEnabled(true);
-      jbNega.setEnabled(true);
-      bEnviar.setEnabled(true);
-      t1.setEnabled(true);
-      jtIP.setEnabled(false);
-      jtServer.setEnabled(false);
-      try{
+         */
+
+        b1.setEnabled(true);
+        b2.setEnabled(true);
+        b3.setEnabled(true);
+        b4.setEnabled(true);
+        b5.setEnabled(true);
+        b6.setEnabled(true);
+        b7.setEnabled(true);
+        b8.setEnabled(true);
+        b9.setEnabled(true);
+        b10.setEnabled(true);
+        bSuma.setEnabled(true);
+        bResta.setEnabled(true);
+        bDivi.setEnabled(true);
+        bMulti.setEnabled(true);
+        bRaiz.setEnabled(true);
+        bDeci.setEnabled(true);
+        jbNega.setEnabled(true);
+        bEnviar.setEnabled(true);
+        t1.setEnabled(true);
+        jtIP.setEnabled(false);
+        jtServer.setEnabled(false);
+        bborrar.setEnabled(true);
+        try {
             /*
             Abrimos el socket del cliente y establecemos la conexión con el host del servidor
             ademas creamos ya nuestros Inputs y Outputs Stream que usaremos
-            */
-            
-            
-            if(c==0){
-            System.out.println("Creando socket cliente");
-            clienteSocket=new Socket();
-            System.out.println("Estableciendo la conexion");
-            InetSocketAddress addr=new InetSocketAddress(jtIP.getText(),Integer.parseInt(jtServer.getText()));
-            clienteSocket.connect(addr);
-            System.out.println("conexion hecha");
-            c+=1;
-            jbConectar.setText("Desconectar");
-            
-            }else{
-            System.out.println("Terminado");
-            clienteSocket.close();
-            System.exit(0);
+             */
+
+ /*
+            Usamos int c para que el boton desconecte cuando yo quiera
+             */
+            if (c == 0) {
+                System.out.println("Creando socket cliente");
+                clienteSocket = new Socket();
+                System.out.println("Estableciendo la conexion");
+                InetSocketAddress addr = new InetSocketAddress(jtIP.getText(), Integer.parseInt(jtServer.getText()));
+                clienteSocket.connect(addr);
+                System.out.println("conexion hecha");
+                c += 1;
+                jbConectar.setText("Desconectar");
+
+            } else {
+                System.out.println("Terminado");
+                clienteSocket.close();
+                System.exit(0);
             }
-      
-      }catch (IOException e) {
-                
-                
-                e.printStackTrace();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jbConectarActionPerformed
+
+    private void bborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bborrarActionPerformed
+        /*
+        Para seguir operando y borrar el resultado de la anterior operacion
+         */
+        t1.setEnabled(true);
+        t1.setEditable(true);
+        bSuma.setEnabled(true);
+        bMulti.setEnabled(true);
+        bResta.setEnabled(true);
+        bDivi.setEnabled(true);
+        bRaiz.setEnabled(true);
+        jbNega.setEnabled(true);
+        t1.setText("");
+    }//GEN-LAST:event_bborrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -646,6 +655,7 @@ public class Cliente1V2 extends javax.swing.JFrame {
     private javax.swing.JButton bRaiz;
     private javax.swing.JButton bResta;
     private javax.swing.JButton bSuma;
+    private javax.swing.JButton bborrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -15,7 +15,9 @@ public class ServidorV2 {
     public static void main(String[] args) {
         try {
             /*
-            Creamos el socket y el bind por el que nos conectaremos al host, aceptando las conexiones.
+            Creamos el server socket y realizamos el inetSocketaddress pidiendonos en este caso el numero de puerto
+            cuando alguien se conecte sacamos por pantalla una aceptando conexiones y empieza a correr la clase donde esta el hilo
+            que vamos a realizar.
              */
             System.out.println("Creando socket servidor");
 
@@ -30,7 +32,7 @@ public class ServidorV2 {
                 System.out.println("Aceptando conexiones");
 
                 Socket newSocket = serverSocket.accept();
-
+                //Llamada a la clase e iniciando el hilo
                 new cliente(newSocket).start();
             }
 
@@ -40,21 +42,19 @@ public class ServidorV2 {
     }
 }
 
-/*
-            Tras recibir la conexion y crear los parametros de Input y Output stream
-            creo dos parametros uno que sea el resultado de la operación y otro el mensaje que mandaremos 
-            además guardaremos cada dato del array en un mensaje de tipo byte para tratarlos de uno en uno
-            los leemos con is.read y los guardamos en una variable, los datos numericos de la operacion en
-            tipo float porque la división o la raiz puede dar decimales y el operador en un tipo int.
- */
 class cliente extends Thread {
-
+    /*
+    Clase que extiende de Thread para ser un hilo, declaramos el socket y los input y output  que usaremos
+    */
     private Socket socket;
     InputStream is;
     OutputStream os;
 
     double resultado = 0;
     String mensajeida;
+    /*
+    creamos el constructor
+    */
     public cliente(Socket socket) throws IOException {
         this.socket = socket;
         is = socket.getInputStream();
@@ -63,8 +63,16 @@ class cliente extends Thread {
     }
 
     public void run() {
-
+        /*
+        Metodo run en el que entraran para enviar y recibir mensajes mas de un cliente a la vez.
+        */
         try {
+            /*
+            Creamos un dowhile para que pueda mandar y recibir continuamente, guardamos en una variable de tipo
+            double y cuenta, en un array paramentros se guardan los 3 datos enviados haciendo un split que en mi caso es un espacio.
+            */
+            do{
+                
             byte[] mensaje = new byte[25];
 
             is.read(mensaje);
@@ -79,6 +87,10 @@ class cliente extends Thread {
 
             
 
+            /*
+            Un for para leer los parametros y trabajar con ellos, en cada if sabremos la operacion que debe ejecutar
+            dentro de cada if realiza la operacion guardando el resultado en una variable y manda el resultado.
+            */
             for (int i = 0; i < parametros.length; i++) {
                 
                 if (parametros[i].equalsIgnoreCase("+")) {
@@ -106,7 +118,10 @@ class cliente extends Thread {
                     
                 } else if (parametros[i].equalsIgnoreCase("/")) {
                     double num1=Double.parseDouble(parametros[2]);
-                
+                    /*
+                    En este caso de la division  guardamos el segundo parametro en una variable
+                    y si este parametro es igual a 0 salta un error, si no es cero calcula normal
+                    */
                     if(num1==0){
                         
                         mensajeida="Error divisor es 0";
@@ -121,6 +136,10 @@ class cliente extends Thread {
                     }
                 } else if (parametros[i].equalsIgnoreCase("√")) {
                     double num2=Double.parseDouble(parametros[0]);
+                    
+                    /*
+                    Guardamos el primer parametro para saber si es menor que cero, si es asi, salta 
+                    */
                     if(num2<0){
                         
                          mensajeida="Error parametro negativo";
@@ -139,6 +158,7 @@ class cliente extends Thread {
 
             System.out.println("Enviando Resultado");
 
+        }while(true);  
             
         } catch (IOException ex) {
             Logger.getLogger(ServidorV2.class.getName()).log(Level.SEVERE, null, ex);
